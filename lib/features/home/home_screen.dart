@@ -1,4 +1,6 @@
+import 'package:college_connect_canteen/features/delivered_orders/delivered_orders.dart';
 import 'package:college_connect_canteen/features/dashboard/dashboard_screen.dart';
+import 'package:college_connect_canteen/features/pending_order/pending_orders.dart';
 import 'package:college_connect_canteen/features/product_screen/product_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(() {
       setState(() {});
     });
@@ -29,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen>
       body: Row(
         children: [
           Container(
-              width: 230,
+              width: 235,
               color: Colors.purple,
               child: Padding(
                 padding:
@@ -78,6 +80,28 @@ class _HomeScreenState extends State<HomeScreen>
                           _tabController.animateTo(1);
                         },
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      DrawerItem(
+                        isActive: _tabController.index == 2,
+                        iconData: Icons.pending_actions_outlined,
+                        label: 'Pending Orders',
+                        onTap: () {
+                          _tabController.animateTo(2);
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      DrawerItem(
+                        isActive: _tabController.index == 3,
+                        iconData: Icons.check_circle_outline_outlined,
+                        label: 'Delivered Orders',
+                        onTap: () {
+                          _tabController.animateTo(3);
+                        },
+                      ),
                     ]),
               )),
           Expanded(
@@ -87,6 +111,8 @@ class _HomeScreenState extends State<HomeScreen>
               children: const [
                 DashboardScreen(),
                 ProductScreen(),
+                PendingOrders(),
+                DeliveredOrders()
               ],
             ),
           ),

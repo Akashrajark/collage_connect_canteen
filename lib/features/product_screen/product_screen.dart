@@ -46,7 +46,7 @@ class ProductScreen extends StatelessWidget {
                         builder: (context) => AddProduct(),
                       );
                     },
-                    label: 'Add student',
+                    label: 'Add Product',
                     iconData: Icons.add,
                   )
                 ],
@@ -63,7 +63,8 @@ class ProductScreen extends StatelessWidget {
                         label: Text('Product Name'), size: ColumnSize.L),
                     DataColumn(label: Text('Price')),
                     DataColumn(label: Text('Image')),
-                    DataColumn(label: Text('Details'), numeric: true),
+                    DataColumn(label: Text('Details')),
+                    DataColumn(label: Text('Action'), numeric: true),
                   ],
                   rows: [
                     DataRow(cells: [
@@ -78,6 +79,9 @@ class ProductScreen extends StatelessWidget {
                         ),
                       ),
                       const DataCell(Text('Nalla payampori')),
+                      DataCell(
+                        EditDeleteButton(),
+                      ),
                     ]),
                     DataRow(cells: [
                       const DataCell(Text('Bonda')),
@@ -91,6 +95,7 @@ class ProductScreen extends StatelessWidget {
                         ),
                       ),
                       const DataCell(Text('Mosham bonda')),
+                      DataCell(EditDeleteButton()),
                     ]),
                   ],
                 ),
@@ -100,5 +105,32 @@ class ProductScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class EditDeleteButton extends StatelessWidget {
+  const EditDeleteButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: [
+      IconButton(
+          onPressed: () {},
+          icon: Icon(
+            Icons.edit,
+            color: Colors.blue,
+          )),
+      SizedBox(
+        width: 20,
+      ),
+      IconButton(
+          onPressed: () {},
+          icon: Icon(
+            Icons.delete,
+            color: Colors.orange,
+          ))
+    ]);
   }
 }
