@@ -1,8 +1,12 @@
+import 'package:college_connect_canteen/common_widget/custom_alert_dialog.dart';
 import 'package:college_connect_canteen/features/delivered_orders/delivered_orders.dart';
 import 'package:college_connect_canteen/features/dashboard/dashboard_screen.dart';
+import 'package:college_connect_canteen/features/login/login_screen.dart';
 import 'package:college_connect_canteen/features/pending_order/pending_orders.dart';
 import 'package:college_connect_canteen/features/product_screen/product_screen.dart';
+import 'package:college_connect_canteen/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,12 +31,12 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple[100],
+      backgroundColor: Colors.purple[50],
       body: Row(
         children: [
           Container(
               width: 235,
-              color: Colors.purple,
+              color: Colors.white,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -49,14 +53,14 @@ class _HomeScreenState extends State<HomeScreen>
                             style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                                color: Colors.black),
                           ),
                           Text(
                             'Canteen',
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.normal,
-                                color: Colors.white),
+                                color: Colors.black),
                           ),
                         ],
                       ),
@@ -102,6 +106,36 @@ class _HomeScreenState extends State<HomeScreen>
                           _tabController.animateTo(3);
                         },
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      DrawerItem(
+                          iconData: Icons.logout_rounded,
+                          label: "Log Out",
+                          isActive: _tabController.index == 4,
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => CustomAlertDialog(
+                                title: "LOG OUT",
+                                content: const Text(
+                                  "Are you sure you want to log out? Clicking 'Logout' will end your current session and require you to sign in again to access your account.",
+                                ),
+                                width: 400,
+                                primaryButton: "LOG OUT",
+                                onPrimaryPressed: () {
+                                  Supabase.instance.client.auth.signOut();
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const Loginscreen(),
+                                      ),
+                                      (route) => false);
+                                },
+                              ),
+                            );
+                          }),
                     ]),
               )),
           Expanded(
@@ -140,19 +174,29 @@ class DrawerItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Material(
-        borderRadius: BorderRadius.circular(15),
-        color: isActive ? Colors.white : Colors.purpleAccent,
+        color: isActive ? primaryColor.withAlpha(20) : Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: isActive
+              ? const BorderSide(
+                  color: primaryColor,
+                  width: 1.5,
+                )
+              : BorderSide.none,
+        ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
           child: Row(
             children: [
-              Icon(iconData, color: isActive ? Colors.black : Colors.white),
+              Icon(iconData, color: isActive ? primaryColor : Colors.grey),
               SizedBox(
                 width: 10,
               ),
-              Text(label.toUpperCase(),
-                  style:
-                      TextStyle(color: isActive ? Colors.black : Colors.white))
+              Text(label,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: isActive ? primaryColor : Colors.grey,
+                        fontWeight: FontWeight.bold,
+                      )),
             ],
           ),
         ),

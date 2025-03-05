@@ -71,11 +71,18 @@ class ProductScreen extends StatelessWidget {
                       const DataCell(Text('Pazham pori')),
                       const DataCell(Text('15')),
                       DataCell(
-                        Image.network(
-                          'https://i0.wp.com/annikaeats.com/wp-content/uploads/2022/09/DSC_0300.jpg?zoom=3&resize=480%2C270&ssl=1', // Replace with your image path
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: Image.network(
+                              'https://i0.wp.com/annikaeats.com/wp-content/uploads/2022/09/DSC_0300.jpg?zoom=3&resize=480%2C270&ssl=1', // Replace with your image path
+                              width: 80,
+                              height: 80,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                       ),
                       const DataCell(Text('Nalla payampori')),
@@ -87,11 +94,18 @@ class ProductScreen extends StatelessWidget {
                       const DataCell(Text('Bonda')),
                       const DataCell(Text('12')),
                       DataCell(
-                        Image.network(
-                          'https://i0.wp.com/www.splashoftaste.com/wp-content/uploads/2022/04/Bonda-aloo-11.jpg', // Replace with your image path
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: Image.network(
+                              'https://i0.wp.com/www.splashoftaste.com/wp-content/uploads/2022/04/Bonda-aloo-11.jpg', // Replace with your image path
+                              width: 80,
+                              height: 80,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                       ),
                       const DataCell(Text('Mosham bonda')),
