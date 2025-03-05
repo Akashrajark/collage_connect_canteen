@@ -39,7 +39,7 @@ class ProductScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 20),
                   CustomButton(
-                    color: Colors.white,
+                    inverse: true,
                     onPressed: () {
                       showDialog(
                         context: context,
