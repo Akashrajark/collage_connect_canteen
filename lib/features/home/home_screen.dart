@@ -1,12 +1,11 @@
 import 'package:college_connect_canteen/common_widget/custom_alert_dialog.dart';
-import 'package:college_connect_canteen/features/delivered_orders/delivered_orders.dart';
 import 'package:college_connect_canteen/features/dashboard/dashboard_screen.dart';
 import 'package:college_connect_canteen/features/login/login_screen.dart';
-import 'package:college_connect_canteen/features/pending_order/pending_orders.dart';
-import 'package:college_connect_canteen/features/product_screen/product_screen.dart';
 import 'package:college_connect_canteen/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../orders/orders_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -144,9 +143,10 @@ class _HomeScreenState extends State<HomeScreen>
               controller: _tabController,
               children: const [
                 DashboardScreen(),
-                ProductScreen(),
-                PendingOrders(),
-                DeliveredOrders()
+                OrdersScreen(status: "pending"),
+                OrdersScreen(status: "Packing"),
+                OrdersScreen(status: "Ready"),
+                OrdersScreen(status: "Collected"),
               ],
             ),
           ),
