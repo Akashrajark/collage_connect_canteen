@@ -137,46 +137,15 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                               builder: (context) =>
                                                   CustomAlertDialog(
                                                 title:
-                                                    'Change Status to Packing?',
+                                                    'Change Status to Complete?',
                                                 description:
-                                                    'Are you sure you want to change the status to Packing?',
+                                                    'Are you sure you want to change the status to Complete?',
                                                 primaryButton: 'Confirm',
                                                 onPrimaryPressed: () {
                                                   _ordersBloc.add(
                                                     EditOrderEvent(
                                                       orderDetails: {
-                                                        'status': 'Packing'
-                                                      },
-                                                      orderId: _orders[index]
-                                                          ['id'],
-                                                    ),
-                                                  );
-                                                  Navigator.pop(context);
-                                                },
-                                                secondaryButton: 'Cancel',
-                                              ),
-                                            );
-                                          },
-                                          title: 'Packing',
-                                          icon: Icons.done_all,
-                                          color: Colors.green),
-                                    if (widget.status == "Packing")
-                                      CustomActionbutton(
-                                          ontap: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  CustomAlertDialog(
-                                                title:
-                                                    'Change Status to Ready?',
-                                                description:
-                                                    'Are you sure you want to change the status to Ready?',
-                                                primaryButton: 'Confirm',
-                                                onPrimaryPressed: () {
-                                                  _ordersBloc.add(
-                                                    EditOrderEvent(
-                                                      orderDetails: {
-                                                        'status': 'Ready'
+                                                        'status': 'Complete'
                                                       },
                                                       orderId: _orders[index]
                                                           ['id'],
@@ -190,38 +159,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                           },
                                           title: "Ready",
                                           icon: Icons.chevron_right_outlined,
-                                          color: secondaryColor),
-                                    if (widget.status == "Ready")
-                                      CustomActionbutton(
-                                          ontap: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  CustomAlertDialog(
-                                                title:
-                                                    'Change Status to Collected?',
-                                                description:
-                                                    'Are you sure you want to change the status to Collected?',
-                                                primaryButton: 'Confirm',
-                                                onPrimaryPressed: () {
-                                                  _ordersBloc.add(
-                                                    EditOrderEvent(
-                                                      orderDetails: {
-                                                        'status': 'Collected'
-                                                      },
-                                                      orderId: _orders[index]
-                                                          ['id'],
-                                                    ),
-                                                  );
-                                                  Navigator.pop(context);
-                                                },
-                                                secondaryButton: 'Cancel',
-                                              ),
-                                            );
-                                          },
-                                          title: "Collected",
-                                          icon: Icons.chevron_right_outlined,
-                                          color: secondaryColor),
+                                          color: Colors.green),
                                     CustomViewButton(
                                       ontap: () {
                                         Navigator.push(

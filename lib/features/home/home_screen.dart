@@ -1,4 +1,5 @@
 import 'package:college_connect_canteen/common_widget/custom_alert_dialog.dart';
+import 'package:college_connect_canteen/features/Product/product_screen.dart';
 import 'package:college_connect_canteen/features/dashboard/dashboard_screen.dart';
 import 'package:college_connect_canteen/features/login/login_screen.dart';
 import 'package:college_connect_canteen/theme/app_theme.dart';
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 4, vsync: this, initialIndex: 1);
     _tabController.addListener(() {
       setState(() {});
     });
@@ -64,17 +65,17 @@ class _HomeScreenState extends State<HomeScreen>
                         ],
                       ),
                       const SizedBox(height: 90),
-                      DrawerItem(
-                        isActive: _tabController.index == 0,
-                        iconData: Icons.dashboard_rounded,
-                        label: 'Dashboard',
-                        onTap: () {
-                          _tabController.animateTo(0);
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      // DrawerItem(
+                      //   isActive: _tabController.index == 0,
+                      //   iconData: Icons.dashboard_rounded,
+                      //   label: 'Dashboard',
+                      //   onTap: () {
+                      //     _tabController.animateTo(0);
+                      //   },
+                      // ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
                       DrawerItem(
                         isActive: _tabController.index == 1,
                         iconData: Icons.fastfood_outlined,
@@ -100,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen>
                       DrawerItem(
                         isActive: _tabController.index == 3,
                         iconData: Icons.check_circle_outline_outlined,
-                        label: 'Delivered Orders',
+                        label: 'Completed Orders',
                         onTap: () {
                           _tabController.animateTo(3);
                         },
@@ -143,10 +144,9 @@ class _HomeScreenState extends State<HomeScreen>
               controller: _tabController,
               children: const [
                 DashboardScreen(),
+                ProductScreen(),
                 OrdersScreen(status: "pending"),
-                OrdersScreen(status: "Packing"),
-                OrdersScreen(status: "Ready"),
-                OrdersScreen(status: "Collected"),
+                OrdersScreen(status: "Complete"),
               ],
             ),
           ),

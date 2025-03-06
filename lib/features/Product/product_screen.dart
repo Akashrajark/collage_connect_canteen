@@ -1,12 +1,12 @@
+import 'package:college_connect_canteen/common_widget/custom_button.dart';
+import 'package:college_connect_canteen/common_widget/custom_search.dart';
+import 'package:college_connect_canteen/common_widget/text_link.dart';
+import 'package:college_connect_canteen/features/Product/add_product.dart';
+import 'package:college_connect_canteen/features/Product/product_bloc/product_bloc.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/web.dart';
-import 'package:pick_n_pay_shop/common_widget/custom_button.dart';
-import 'package:pick_n_pay_shop/common_widget/custom_search.dart';
-import 'package:pick_n_pay_shop/common_widget/text_link.dart';
-import 'package:pick_n_pay_shop/features/Product/add_product.dart';
-import 'package:pick_n_pay_shop/features/Product/product_bloc/product_bloc.dart';
 
 import '../../common_widget/custom_alert_dialog.dart';
 
@@ -81,7 +81,8 @@ class _ProductScreenState extends State<ProductScreen> {
                               fontWeight: FontWeight.bold, color: Colors.green),
                     ),
                     const Spacer(),
-                    Expanded(
+                    SizedBox(
+                      width: 300,
                       child: CustomSearch(
                         onSearch: (value) {
                           params['query'] = value;
@@ -91,7 +92,6 @@ class _ProductScreenState extends State<ProductScreen> {
                     ),
                     const SizedBox(width: 10),
                     CustomButton(
-                      inverse: true,
                       onPressed: () {
                         showDialog(
                           context: context,
@@ -125,7 +125,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         DataColumn(label: Text('Image URL')),
                         DataColumn(label: Text('Stock')),
                         DataColumn(label: Text('Unit')),
-                        DataColumn(label: Text('Category')),
+                        // DataColumn(label: Text('Category')),
                         DataColumn(
                           label: Align(
                               alignment: Alignment.centerRight,
@@ -158,8 +158,8 @@ class _ProductScreenState extends State<ProductScreen> {
                               DataCell(
                                   Text(_products[index]['stock'].toString())),
                               DataCell(Text(_products[index]['unit'])),
-                              DataCell(Text(
-                                  _products[index]['categories']?['name'])),
+                              // DataCell(Text(
+                              //     _products[index]['categories']?['name'])),
                               DataCell(
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,

@@ -44,7 +44,7 @@ class OrderDetailsPage extends StatelessWidget {
                           CircleAvatar(
                             radius: 30,
                             backgroundImage: NetworkImage(
-                              orderDetails['customers']['photo'],
+                              orderDetails['customers']['image_url'],
                             ),
                           ),
                           const SizedBox(width: 16),

@@ -36,7 +36,7 @@ class _AddEditProductState extends State<AddEditProduct> {
       _priceController.text = widget.productDetails!['price'].toString();
       _stockController.text = widget.productDetails!['stock'].toString();
       selectedUnit = widget.productDetails!['unit'];
-      selectedCategory = widget.productDetails!['category_id'];
+      // selectedCategory = widget.productDetails!['category_id'];
     }
     super.initState();
   }
@@ -56,76 +56,75 @@ class _AddEditProductState extends State<AddEditProduct> {
           content: Form(
             autovalidateMode: AutovalidateMode.onUserInteraction,
             key: _formKey,
-            child: Flexible(
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  Text(
-                    "Product Details",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
-                  ),
-                  SizedBox(height: 5),
-                  CustomImagePickerButton(
-                    width: double.infinity,
-                    height: 200,
-                    selectedImage: widget.productDetails?['image_url'],
-                    onPick: (pick) {
-                      productImage = pick;
-                      setState(() {});
-                    },
-                  ),
-                  SizedBox(height: 10),
-                  CustomTextFormField(
-                    validator: notEmptyValidator,
-                    controller: _productNameController,
-                    isLoading: state is ProductLoadingState,
-                    labelText: 'Product Name',
-                  ),
-                  SizedBox(height: 10),
-                  CustomTextFormField(
-                    validator: numericValidator,
-                    controller: _priceController,
-                    isLoading: state is ProductLoadingState,
-                    labelText: 'Price',
-                  ),
-                  SizedBox(height: 10),
-                  CustomTextFormField(
-                    validator: numericValidator,
-                    controller: _stockController,
-                    isLoading: state is ProductLoadingState,
-                    labelText: 'Stock',
-                  ),
-                  SizedBox(height: 10),
-                  CustomDropDownMenu(
-                    initialSelection: selectedUnit,
-                    hintText: 'Select Unit',
-                    dropdownMenuEntries: [
-                      DropdownMenuEntry(value: 'kg', label: 'kg'),
-                      DropdownMenuEntry(value: 'ltr', label: 'ltr'),
-                      DropdownMenuEntry(value: 'piece', label: 'piece'),
-                    ],
-                    onSelected: (String? newValue) {
-                      setState(() {
-                        selectedUnit = newValue!;
-                      });
-                    },
-                  ),
-                  SizedBox(height: 10),
-                  CustomDropDownMenu(
-                    initialSelection: selectedCategory,
-                    hintText: 'Select Category',
-                    dropdownMenuEntries: widget.categories
-                        .map((category) => DropdownMenuEntry(
-                            value: category['id'], label: category['name']))
-                        .toList(),
-                    onSelected: (newValue) {
-                      setState(() {
-                        selectedCategory = newValue!;
-                      });
-                    },
-                  ),
-                ],
-              ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Product Details",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+                ),
+                SizedBox(height: 5),
+                CustomImagePickerButton(
+                  width: double.infinity,
+                  height: 200,
+                  selectedImage: widget.productDetails?['image_url'],
+                  onPick: (pick) {
+                    productImage = pick;
+                    setState(() {});
+                  },
+                ),
+                SizedBox(height: 10),
+                CustomTextFormField(
+                  validator: notEmptyValidator,
+                  controller: _productNameController,
+                  isLoading: state is ProductLoadingState,
+                  labelText: 'Product Name',
+                ),
+                SizedBox(height: 10),
+                CustomTextFormField(
+                  validator: numericValidator,
+                  controller: _priceController,
+                  isLoading: state is ProductLoadingState,
+                  labelText: 'Price',
+                ),
+                SizedBox(height: 10),
+                CustomTextFormField(
+                  validator: numericValidator,
+                  controller: _stockController,
+                  isLoading: state is ProductLoadingState,
+                  labelText: 'Stock',
+                ),
+                SizedBox(height: 10),
+                CustomDropDownMenu(
+                  initialSelection: selectedUnit,
+                  hintText: 'Select Unit',
+                  dropdownMenuEntries: [
+                    DropdownMenuEntry(value: 'kg', label: 'kg'),
+                    DropdownMenuEntry(value: 'ltr', label: 'ltr'),
+                    DropdownMenuEntry(value: 'piece', label: 'piece'),
+                  ],
+                  onSelected: (String? newValue) {
+                    setState(() {
+                      selectedUnit = newValue!;
+                    });
+                  },
+                ),
+                SizedBox(height: 10),
+                // CustomDropDownMenu(
+                //   initialSelection: selectedCategory,
+                //   hintText: 'Select Category',
+                //   dropdownMenuEntries: widget.categories
+                //       .map((category) => DropdownMenuEntry(
+                //           value: category['id'], label: category['name']))
+                //       .toList(),
+                //   onSelected: (newValue) {
+                //     setState(() {
+                //       selectedCategory = newValue!;
+                //     });
+                //   },
+                // ),
+              ],
             ),
           ),
           onPrimaryPressed: () {
@@ -136,7 +135,7 @@ class _AddEditProductState extends State<AddEditProduct> {
                 'price': double.parse(_priceController.text.trim()),
                 'stock': int.parse(_stockController.text.trim()),
                 'unit': selectedUnit,
-                'category_id': selectedCategory,
+                // 'category_id': selectedCategory,
               };
 
               if (productImage != null) {

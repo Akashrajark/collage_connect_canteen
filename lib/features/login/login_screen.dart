@@ -128,6 +128,7 @@ import 'package:college_connect_canteen/theme/app_theme.dart';
 import 'package:college_connect_canteen/util/value_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -141,6 +142,23 @@ class _LoginScreenState extends State<Loginscreen> {
   final TextEditingController _emailController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
   bool isObscure = true;
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(
+        const Duration(
+          milliseconds: 100,
+        ), () {
+      User? currentUser = Supabase.instance.client.auth.currentUser;
+      if (currentUser != null) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

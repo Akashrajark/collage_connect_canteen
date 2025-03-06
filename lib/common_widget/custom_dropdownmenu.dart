@@ -23,7 +23,7 @@ class CustomDropDownMenu<T> extends StatelessWidget {
       initialSelection: initialSelection,
       onSelected: onSelected,
       controller: controller,
-      width: double.infinity,
+      width: width,
       hintText: hintText,
       textStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w500,
