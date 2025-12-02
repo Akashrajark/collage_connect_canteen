@@ -68,121 +68,113 @@ class _OrdersScreenState extends State<OrdersScreen> {
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-            child: Column(
-              children: [
-                Row(
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
                   children: [
-                    Text(
-                      'Orders Screen',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall!
-                          .copyWith(
-                              fontWeight: FontWeight.bold, color: Colors.green),
-                    ),
-                    const Spacer(),
-                    Expanded(
-                      child: CustomSearch(
-                        onSearch: (value) {
-                          params['query'] = value;
-                          getOrders();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-                if (state is OrdersLoadingState)
-                  const Center(child: CircularProgressIndicator()),
-                if (state is OrdersGetSuccessState && _orders.isEmpty)
-                  const Center(child: Text('No Orders Found')),
-                if (state is OrdersGetSuccessState && _orders.isNotEmpty)
-                  Expanded(
-                    child: DataTable2(
-                      columnSpacing: 12,
-                      horizontalMargin: 12,
-                      minWidth: 1200,
-                      columns: const [
-                        DataColumn(label: Text('Order ID')),
-                        DataColumn(label: Text('Customer Name')),
-                        DataColumn(label: Text('Created At')),
-                        DataColumn(label: Text('Status')),
-                        DataColumn(
-                          label: Align(
-                              alignment: Alignment.centerRight,
-                              child: Text('Action')),
+                    Row(
+                      children: [
+                        Text(
+                          'Orders Screen',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(fontWeight: FontWeight.bold, color: Colors.green),
+                        ),
+                        const Spacer(),
+                        Expanded(
+                          child: CustomSearch(
+                            onSearch: (value) {
+                              params['query'] = value;
+                              getOrders();
+                            },
+                          ),
                         ),
                       ],
-                      rows: List.generate(
-                        _orders.length,
-                        (index) {
-                          return DataRow(
-                            cells: [
-                              DataCell(Text(_orders[index]['id'].toString())),
-                              DataCell(Text(formatValue(
-                                  _orders[index]['customers']['name']))),
-                              DataCell(Text(
-                                  formatDate(_orders[index]['created_at']))),
-                              DataCell(Text(_orders[index]['status'])),
-                              DataCell(
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  spacing: 10,
-                                  children: [
-                                    if (widget.status == "pending")
-                                      CustomActionbutton(
+                    ),
+                    const SizedBox(height: 30),
+                    if (state is OrdersLoadingState) const Center(child: CircularProgressIndicator()),
+                    if (state is OrdersGetSuccessState && _orders.isEmpty) const Center(child: Text('No Orders Found')),
+                    if (state is OrdersGetSuccessState && _orders.isNotEmpty)
+                      Expanded(
+                        child: DataTable2(
+                          columnSpacing: 12,
+                          horizontalMargin: 12,
+                          minWidth: 1200,
+                          columns: const [
+                            DataColumn(label: Text('Order ID')),
+                            DataColumn(label: Text('Customer Name')),
+                            DataColumn(label: Text('Created At')),
+                            DataColumn(label: Text('Status')),
+                            DataColumn(
+                              label: Align(alignment: Alignment.centerRight, child: Text('Action')),
+                            ),
+                          ],
+                          rows: List.generate(
+                            _orders.length,
+                            (index) {
+                              return DataRow(
+                                cells: [
+                                  DataCell(Text(_orders[index]['id'].toString())),
+                                  DataCell(Text(formatValue(_orders[index]['customers']['name']))),
+                                  DataCell(Text(formatDate(_orders[index]['created_at']))),
+                                  DataCell(Text(_orders[index]['status'])),
+                                  DataCell(
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      spacing: 10,
+                                      children: [
+                                        if (widget.status == "pending")
+                                          CustomActionbutton(
+                                              ontap: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) => CustomAlertDialog(
+                                                    title: 'Change Status to Complete?',
+                                                    description:
+                                                        'Are you sure you want to change the status to Complete?',
+                                                    primaryButton: 'Confirm',
+                                                    onPrimaryPressed: () {
+                                                      _ordersBloc.add(
+                                                        EditOrderEvent(
+                                                          orderDetails: {'status': 'Complete'},
+                                                          orderId: _orders[index]['id'],
+                                                        ),
+                                                      );
+                                                      Navigator.pop(context);
+                                                    },
+                                                    secondaryButton: 'Cancel',
+                                                  ),
+                                                );
+                                              },
+                                              title: "Ready",
+                                              icon: Icons.chevron_right_outlined,
+                                              color: Colors.green),
+                                        CustomViewButton(
                                           ontap: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  CustomAlertDialog(
-                                                title:
-                                                    'Change Status to Complete?',
-                                                description:
-                                                    'Are you sure you want to change the status to Complete?',
-                                                primaryButton: 'Confirm',
-                                                onPrimaryPressed: () {
-                                                  _ordersBloc.add(
-                                                    EditOrderEvent(
-                                                      orderDetails: {
-                                                        'status': 'Complete'
-                                                      },
-                                                      orderId: _orders[index]
-                                                          ['id'],
-                                                    ),
-                                                  );
-                                                  Navigator.pop(context);
-                                                },
-                                                secondaryButton: 'Cancel',
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => OrderDetailsPage(
+                                                  orderDetails: _orders[index],
+                                                ),
                                               ),
                                             );
                                           },
-                                          title: "Ready",
-                                          icon: Icons.chevron_right_outlined,
-                                          color: Colors.green),
-                                    CustomViewButton(
-                                      ontap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                OrderDetailsPage(
-                                              orderDetails: _orders[index],
-                                            ),
-                                          ),
-                                        );
-                                      },
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
-                        },
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-              ],
+                  ],
+                ),
+              ),
             ),
           );
         },
@@ -208,10 +200,7 @@ class CustomViewButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Text(
             'View details',
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall!
-                .copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           ),
         ),
       ),

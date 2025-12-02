@@ -16,27 +16,23 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         emit(ProductLoadingState());
         SupabaseClient supabaseClient = Supabase.instance.client;
 
-        SupabaseQueryBuilder table =
-            Supabase.instance.client.from('shop_products');
+        SupabaseQueryBuilder table = Supabase.instance.client.from('canteen_products');
 
         if (event is GetAllProductsEvent) {
           // List<Map<String, dynamic>> categories = await supabaseClient
           //     .from('categories')
           //     .select()
           //     .order('name', ascending: true);
-          PostgrestFilterBuilder<List<Map<String, dynamic>>> query =
-              table.select('*');
+          PostgrestFilterBuilder<List<Map<String, dynamic>>> query = table.select('*');
           if (event.params['query'] != null) {
             query = query.ilike('name', '%${event.params['query']}%');
           }
 
-          List<Map<String, dynamic>> products =
-              await query.order('name', ascending: true);
+          List<Map<String, dynamic>> products = await query.order('name', ascending: true);
 
           emit(ProductGetSuccessState(products: products));
         } else if (event is AddProductEvent) {
-          event.productDetails['shop_user_id'] =
-              supabaseClient.auth.currentUser!.id;
+          event.productDetails['shop_user_id'] = supabaseClient.auth.currentUser!.id;
           event.productDetails['image_url'] = await uploadFile(
             'petstores/image',
             event.productDetails['image'],
@@ -52,7 +48,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           event.productDetails.remove('password');
           if (event.productDetails['image'] != null) {
             event.productDetails['image_url'] = await uploadFile(
-              'petstores/image',
+              'canteen_products/image',
               event.productDetails['image'],
               event.productDetails['image_name'],
             );

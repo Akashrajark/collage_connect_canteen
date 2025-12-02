@@ -18,16 +18,14 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
         SupabaseQueryBuilder table = supabaseClient.from('orders');
 
         if (event is GetAllOrdersEvent) {
-          PostgrestFilterBuilder<List<Map<String, dynamic>>> query = table
-              .select('*, customers(*),order_items(*,shop_products(*))')
-              .eq('status', event.params['status']);
+          PostgrestFilterBuilder<List<Map<String, dynamic>>> query =
+              table.select('*, students(*),order_items(*,canteen_products(*))').eq('status', event.params['status']);
           if (event.params['query'] != null) {
-            query = query.ilike('customers.name', '%${event.params['query']}%');
+            query = query.ilike('students.name', '%${event.params['query']}%');
           }
           table.select('*');
 
-          List<Map<String, dynamic>> orders =
-              await query.order('created_at', ascending: true);
+          List<Map<String, dynamic>> orders = await query.order('created_at', ascending: true);
 
           emit(OrdersGetSuccessState(orders: orders));
         } else if (event is AddOrderEvent) {
