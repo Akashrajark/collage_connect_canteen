@@ -44,7 +44,7 @@ class OrderDetailsPage extends StatelessWidget {
                           CircleAvatar(
                             radius: 30,
                             backgroundImage: NetworkImage(
-                              orderDetails['customers']['image_url'],
+                              orderDetails['students']['image_url'],
                             ),
                           ),
                           const SizedBox(width: 16),
@@ -58,7 +58,7 @@ class OrderDetailsPage extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  orderDetails['customers']['name'],
+                                  orderDetails['students']['name'],
                                   style: TextStyle(fontSize: 16),
                                 ),
                               ],
@@ -86,9 +86,7 @@ class OrderDetailsPage extends StatelessWidget {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
-                                        .copyWith(
-                                            fontWeight: FontWeight.normal,
-                                            color: Colors.white),
+                                        .copyWith(fontWeight: FontWeight.normal, color: Colors.black),
                                   ),
                                 ),
                               )
@@ -136,8 +134,7 @@ class OrderDetailsPage extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               image: DecorationImage(
-                                image: NetworkImage(
-                                    item['shop_products']['image_url']),
+                                image: NetworkImage(item['canteen_products']['image_url']),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -146,7 +143,7 @@ class OrderDetailsPage extends StatelessWidget {
                           // Item Details
                           Expanded(
                             child: Text(
-                              item['shop_products']['name'],
+                              item['canteen_products']['name'],
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),

@@ -117,7 +117,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                               return DataRow(
                                 cells: [
                                   DataCell(Text(_orders[index]['id'].toString())),
-                                  DataCell(Text(formatValue(_orders[index]['customers']['name']))),
+                                  DataCell(Text(formatValue(_orders[index]['students']?['name']))),
                                   DataCell(Text(formatDate(_orders[index]['created_at']))),
                                   DataCell(Text(_orders[index]['status'])),
                                   DataCell(
