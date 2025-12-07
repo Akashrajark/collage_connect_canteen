@@ -30,7 +30,7 @@ class DashboardScreen extends StatelessWidget {
                     );
                   }),
               FutureBuilder(
-                  future: supabaseClient.from('orders').count().eq('shop_user_id', userId).eq('type', 'event'),
+                  future: supabaseClient.from('orders').count().eq('shop_user_id', userId).eq('status', 'pending'),
                   builder: (context, asyncSnapshot) {
                     return DashboardItem(
                       isLoading: asyncSnapshot.connectionState == ConnectionState.waiting,
@@ -40,7 +40,7 @@ class DashboardScreen extends StatelessWidget {
                     );
                   }),
               FutureBuilder(
-                  future: supabaseClient.from('orders').count().eq('shop_user_id', userId).eq('type', 'seminar'),
+                  future: supabaseClient.from('orders').count().eq('shop_user_id', userId).eq('status', 'complete'),
                   builder: (context, asyncSnapshot) {
                     return DashboardItem(
                       isLoading: asyncSnapshot.connectionState == ConnectionState.waiting,

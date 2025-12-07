@@ -138,7 +138,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                                     onPrimaryPressed: () {
                                                       _ordersBloc.add(
                                                         EditOrderEvent(
-                                                          orderDetails: {'status': 'Complete'},
+                                                          orderDetails: {'status': 'complete'},
                                                           orderId: _orders[index]['id'],
                                                         ),
                                                       );
@@ -148,7 +148,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                                   ),
                                                 );
                                               },
-                                              title: "Ready",
+                                              title: "Complete",
                                               icon: Icons.chevron_right_outlined,
                                               color: Colors.green),
                                         CustomViewButton(

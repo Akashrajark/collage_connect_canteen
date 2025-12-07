@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 DashboardScreen(),
                 ProductScreen(),
                 OrdersScreen(status: "pending"),
-                OrdersScreen(status: "Complete"),
+                OrdersScreen(status: "complete"),
               ],
             ),
           ),
